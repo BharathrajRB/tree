@@ -13,23 +13,16 @@ public class ValidTreeChecker {
             }
         }
 
-        ArrayList<Integer> parentList = new ArrayList<>();
-        for (int i = 1; i < nodeList.size(); i += 2) {
-            parentList.add(nodeList.get(i));
-        }
-
         boolean isValidTree = true;
 
-        for (int i = 0; i < parentList.size() - 1; i++) {
-            int childCount = 1;
+        HashMap<Integer, Integer> parentCount = new HashMap<>();
 
-            for (int j = i + 1; j < parentList.size(); j++) {
-                if (parentList.get(i).equals(parentList.get(j))) {
-                    childCount++;
-                }
-            }
+        for (int i = 1; i < nodeList.size(); i += 2) {
+            int parent = nodeList.get(i);
 
-            if (childCount > 2) {
+            parentCount.put(parent, parentCount.getOrDefault(parent, 0) + 1);
+
+            if (parentCount.get(parent) > 2) {
                 isValidTree = false;
                 break;
             }
